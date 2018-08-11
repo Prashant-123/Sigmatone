@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="10dp"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/group_name_subs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -26,19 +27,25 @@
             android:id="@+id/mute"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.github.zagum.switchicon.SwitchIconView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                app:si_animation_duration="500"
+                app:si_disabled_alpha=".3"
+                app:si_disabled_color="#b7b7b7"
+                app:si_tint_color="#ff3c00"
+                app:si_enabled="true"
+                app:si_no_dash="true"
                 android:id="@+id/mute_btn"
-                android:src="@drawable/ic_volup"/>
+                app:srcCompat="@drawable/ic_volup"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:id="@+id/mute_text"
-                android:text="Mute"/>
+                android:text="Sound"/>
 
             </LinearLayout>
 

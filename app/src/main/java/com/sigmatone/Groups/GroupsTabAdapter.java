@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.sigmatone.Homepage;
@@ -31,7 +32,17 @@ public class GroupsTabAdapter extends RecyclerView.Adapter<GroupsTabAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GroupsTabAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final GroupsTabAdapter.ViewHolder holder, int position) {
+
+        holder.subsBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton chkBox, boolean b) {
+                if (chkBox.isChecked())
+                    chkBox.setText("Subscribed");
+                else chkBox.setText("Subscribe");
+            }
+        });
+
         holder.groupName.setText(Homepage.groups.get(position).name);
         if (Homepage.groups.get(position).isSubscribed()) {
             holder.subsBox.setChecked(true);

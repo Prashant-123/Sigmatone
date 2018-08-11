@@ -146,44 +146,16 @@ public class Homepage extends AppCompatActivity {
         Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
     }
 
-    public void get_all_groups() {
-        final DatabaseReference all_group = FirebaseDatabase.getInstance().getReference("groups");
-        all_group.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                AllGroupDataClass grp = dataSnapshot.getValue(AllGroupDataClass.class);
-                if (subscribed_groups_list.toString().contains(grp.getId())) {
-                    Log.i(TAG, "Yooo");
-                    UserGroup userGroup = new UserGroup(grp.getId(), grp.getName(), true);
-                    groups.add(userGroup);
-                    Groups.adapter.notifyDataSetChanged();
-                } else {
-                    Log.i(TAG, "NOPE");
-                    UserGroup userGroup = new UserGroup(grp.getId(), grp.getName(), false);
-                    groups.add(userGroup);
-                    Groups.adapter.notifyDataSetChanged();
-                }
-
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     public class fetch_groups extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            groups.clear();
             DatabaseReference groups_subs = FirebaseDatabase.getInstance().
                     getReference("users/prashant/groups_subscribed");
 
@@ -195,20 +167,50 @@ public class Homepage extends AppCompatActivity {
                         subscribed_groups_list.add(ug.get(i));
                         Log.i(TAG, ug.get(i));
                     }
+
+                    final DatabaseReference all_group = FirebaseDatabase.getInstance().getReference("groups");
+                    all_group.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            AllGroupDataClass grp = dataSnapshot.getValue(AllGroupDataClass.class);
+                            if (subscribed_groups_list.toString().contains(grp.getId())) {
+                                UserGroup userGroup = new UserGroup(grp.getId(), grp.getName(), true);
+                                groups.add(userGroup);
+                                Groups.adapter.notifyDataSetChanged();
+                            } else {
+                                UserGroup userGroup = new UserGroup(grp.getId(), grp.getName(), false);
+                                groups.add(userGroup);
+                                Groups.adapter.notifyDataSetChanged();
+                            }
+
+                        }
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        }
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        }
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
             });
-            get_all_groups();
-            return null;
+            super.onPreExecute();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-//            get_all_groups();
         }
     }
 }
