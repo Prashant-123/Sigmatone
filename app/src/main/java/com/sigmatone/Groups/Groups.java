@@ -17,7 +17,7 @@ import com.sigmatone.R;
 public class Groups extends Fragment {
 
     public RecyclerView recyclerView;
-    public GroupsTabAdapter adapter;
+    public static GroupsTabAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

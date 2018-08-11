@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.sigmatone.Homepage;
 import com.sigmatone.R;
 
 
@@ -30,11 +32,16 @@ public class GroupsTabAdapter extends RecyclerView.Adapter<GroupsTabAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull GroupsTabAdapter.ViewHolder holder, int position) {
+        holder.groupName.setText(Homepage.groups.get(position).name);
+        if (Homepage.groups.get(position).isSubscribed()) {
+            holder.subsBox.setChecked(true);
+            holder.subsBox.setText("Subscribed");
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return Homepage.groups.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
